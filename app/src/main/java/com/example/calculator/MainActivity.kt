@@ -1,9 +1,10 @@
 package com.example.calculator
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     var rightHandTurn: Boolean = false
     var result = ""
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,6 +30,19 @@ class MainActivity : AppCompatActivity() {
         clearBtn.setOnClickListener {
             onClear(it)
         }
+
+        inputTextView.setOnTouchListener {view, event ->
+            when(event.action) {
+                MotionEvent.ACTION_UP -> {
+                    deleteDigit(view)
+                }
+            }
+            true
+        }
+    }
+
+    private fun deleteDigit(view: View) {
+        inputTextView.text = inputTextView.text.toString().dropLast(1)
     }
 
     fun onDigit(view: View) {
@@ -71,6 +86,7 @@ class MainActivity : AppCompatActivity() {
 
         prevActiveBtn = activeBtn
         rightHandTurn = true
+        decimalUsed = false
     }
 
     fun onPercent(view: View) {
@@ -88,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         when(operator) {
             "+" -> eval = leftDigits.toDouble() + inputTextView.text.toString().toDouble()
             "-" -> eval = leftDigits.toDouble() - inputTextView.text.toString().toDouble()
-            "*" -> eval = leftDigits.toDouble() * inputTextView.text.toString().toDouble()
+            "x" -> eval = leftDigits.toDouble() * inputTextView.text.toString().toDouble()
             "/" -> eval = leftDigits.toDouble() / inputTextView.text.toString().toDouble()
         }
 
