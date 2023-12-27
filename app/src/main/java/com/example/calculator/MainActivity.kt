@@ -64,6 +64,9 @@ class MainActivity : AppCompatActivity() {
         leftDigits = ""
         operator = ""
         result = ""
+
+        prevActiveBtn?.setBackgroundColor(Color.parseColor("#FFAC30"))
+        prevActiveBtn?.setTextColor(Color.WHITE)
     }
 
     fun onDecimalPoint(view: View) {
@@ -77,6 +80,8 @@ class MainActivity : AppCompatActivity() {
         val activeBtn = view as Button
         operator = activeBtn.text.toString()
         leftDigits = inputTextView.text.toString()
+
+        if(leftDigits == "0") return
 
         prevActiveBtn?.setBackgroundColor(Color.parseColor("#FFAC30"))
         prevActiveBtn?.setTextColor(Color.WHITE)
@@ -97,7 +102,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onEqual(view: View) {
+        if(leftDigits === "" || operator == "" || rightHandTurn) return
+
         var eval = 0.0
+
         prevActiveBtn?.setBackgroundColor(Color.parseColor("#FFAC30"))
         prevActiveBtn?.setTextColor(Color.WHITE)
 
@@ -115,5 +123,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         inputTextView.text = result
+    }
+
+    fun onPlusMinus(view: View) {
+        val sb = StringBuilder(inputTextView.text.toString())
+        sb.insert(0, '-')
+
+        inputTextView.text = sb
     }
 }

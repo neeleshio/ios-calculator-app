@@ -65,7 +65,7 @@
                 android:textColor="#121212"
                 android:textSize="20sp"
                 app:cornerRadius="36dp"
-                android:onClick="onDigit"
+                android:onClick="onPlusMinus"
                 />
 
             <com.google.android.material.button.MaterialButton
