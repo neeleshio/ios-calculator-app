@@ -11,7 +11,6 @@ import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var inputTextView: TextView
-    private lateinit var clearBtn: Button
     private var decimalUsed: Boolean = false
     var leftDigits = ""
     var operator = ""
@@ -25,11 +24,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         inputTextView = findViewById(R.id.input_textview)
-        clearBtn = findViewById(R.id.btn_c)
-
-        clearBtn.setOnClickListener {
-            onClear(it)
-        }
 
         inputTextView.setOnTouchListener {view, event ->
             when(event.action) {
@@ -58,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onClear(view: View) {
+    fun onClear(view: View) {
         inputTextView.text = "0"
         decimalUsed = false
         leftDigits = ""
@@ -80,8 +74,6 @@ class MainActivity : AppCompatActivity() {
         val activeBtn = view as Button
         operator = activeBtn.text.toString()
         leftDigits = inputTextView.text.toString()
-
-        if(leftDigits == "0") return
 
         prevActiveBtn?.setBackgroundColor(Color.parseColor("#FFAC30"))
         prevActiveBtn?.setTextColor(Color.WHITE)
