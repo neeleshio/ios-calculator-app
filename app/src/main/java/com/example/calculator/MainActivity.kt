@@ -36,6 +36,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun deleteDigit(view: View) {
+        if(inputTextView.text.toString() == "0") return
+        if(inputTextView.text.toString().length == 1) {
+            inputTextView.text = "0"
+            return
+        }
         inputTextView.text = inputTextView.text.toString().dropLast(1)
     }
 
