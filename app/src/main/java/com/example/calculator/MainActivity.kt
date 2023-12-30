@@ -11,7 +11,6 @@ import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var inputTextView: TextView
-    private var decimalUsed: Boolean = false
     var leftDigits = ""
     var operator = ""
     var prevActiveBtn: Button? = null
@@ -59,7 +58,6 @@ class MainActivity : AppCompatActivity() {
 
     fun onClear(view: View) {
         inputTextView.text = "0"
-        decimalUsed = false
         leftDigits = ""
         operator = ""
         result = ""
@@ -69,9 +67,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onDecimalPoint(view: View) {
-        if(!decimalUsed) {
+        if(!inputTextView.text.toString().contains(".")) {
             inputTextView.append(".")
-            decimalUsed = true
         }
     }
 
@@ -88,7 +85,6 @@ class MainActivity : AppCompatActivity() {
 
         prevActiveBtn = activeBtn
         rightHandTurn = true
-        decimalUsed = false
     }
 
     fun onPercent(view: View) {
